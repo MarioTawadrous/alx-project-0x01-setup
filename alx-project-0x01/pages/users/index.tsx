@@ -7,7 +7,7 @@ interface UsersPageProps {
   posts: PostProps[]; // Add posts to props
 }
 
-const UsersPage: React.FC<UsersPageProps> = ({ users, posts }) => {
+const Users: React.FC<UsersPageProps> = ({ users, posts }) => {
   return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="container mx-auto">
@@ -52,4 +52,4 @@ export async function getStaticProps() {
   };
 }
 
-export default UsersPage;
+export default Users;

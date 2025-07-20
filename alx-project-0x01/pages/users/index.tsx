@@ -10,10 +10,7 @@ interface UsersPageProps {
   posts: PostProps[];
 }
 
-const UsersPage: React.FC<UsersPageProps> = ({
-  users: initialUsers,
-  posts,
-}) => {
+const Users: React.FC<UsersPageProps> = ({ users: initialUsers, posts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUsers] = useState<UserProps[]>(initialUsers);
 
@@ -91,4 +88,4 @@ export async function getStaticProps() {
   };
 }
 
-export default UsersPage;
+export default Users;

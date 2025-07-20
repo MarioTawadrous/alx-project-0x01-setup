@@ -1,5 +1,11 @@
+import Header from "@/components/layout/Header";
+
 const index: React.FC = () => {
-  return <div>Users Page</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
 
 export default index;

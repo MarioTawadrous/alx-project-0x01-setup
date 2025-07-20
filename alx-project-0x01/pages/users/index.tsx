@@ -1,3 +1,4 @@
+// pages/users/index.tsx
 import React, { useState } from "react";
 import UserCard from "../../components/common/UserCard";
 import PostCard from "../../components/common/PostCard";
@@ -17,10 +18,11 @@ const UsersPage: React.FC<UsersPageProps> = ({
   const [users, setUsers] = useState<UserProps[]>(initialUsers);
 
   const handleAddUser = (newUser: UserData) => {
-    // Generate a temporary ID (in a real app, this would come from the API)
+    // Generate a temporary ID
     const tempId =
       users.length > 0 ? Math.max(...users.map((user) => user.id)) + 1 : 1;
 
+    // Create a new user object with the generated ID
     const userWithId: UserProps = {
       ...newUser,
       id: tempId,

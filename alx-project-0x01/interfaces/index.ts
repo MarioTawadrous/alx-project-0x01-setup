@@ -47,3 +47,21 @@ export interface PostModalProps {
   onClose: () => void;
   onSubmit: (post: PostData) => void;
 }
+
+
+export interface UserData {
+  id?: number;
+  name: string;
+  username: string;
+  email: string;
+  address: Address;
+  phone: string;
+  website: string;
+  company: Company;
+}
+
+export interface UserModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onAddUser: (user: UserData) => void;
+}

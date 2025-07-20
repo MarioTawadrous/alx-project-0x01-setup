@@ -1,18 +1,48 @@
+import React, { useState } from "react";
 import UserCard from "../../components/common/UserCard";
-import PostCard from "../../components/common/PostCard"; // Import PostCard
-import { UserProps, PostProps } from "../../interfaces"; // Import PostProps
+import PostCard from "../../components/common/PostCard";
+import UserModal from "../../components/common/UserModal";
+import { UserProps, PostProps, UserData } from "../../interfaces";
 
 interface UsersPageProps {
   users: UserProps[];
-  posts: PostProps[]; // Add posts to props
+  posts: PostProps[];
 }
 
-const Users: React.FC<UsersPageProps> = ({ users, posts }) => {
+const UsersPage: React.FC<UsersPageProps> = ({
+  users: initialUsers,
+  posts,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [users, setUsers] = useState<UserProps[]>(initialUsers);
+
+  const handleAddUser = (newUser: UserData) => {
+    // Generate a temporary ID (in a real app, this would come from the API)
+    const tempId =
+      users.length > 0 ? Math.max(...users.map((user) => user.id)) + 1 : 1;
+
+    const userWithId: UserProps = {
+      ...newUser,
+      id: tempId,
+    } as UserProps;
+
+    setUsers((prevUsers) => [...prevUsers, userWithId]);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 py-8">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         {/* Users Section */}
-        <h1 className="text-3xl font-bold text-center mb-8">Users List</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold">Users List</h1>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            Add User
+          </button>
+        </div>
+
         <div className="flex flex-wrap justify-center mb-12">
           {users.map((user) => (
             <UserCard key={user.id} user={user} />
@@ -27,6 +57,13 @@ const Users: React.FC<UsersPageProps> = ({ users, posts }) => {
           ))}
         </div>
       </div>
+
+      {/* User Modal */}
+      <UserModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddUser={handleAddUser}
+      />
     </div>
   );
 };
@@ -47,9 +84,9 @@ export async function getStaticProps() {
   return {
     props: {
       users,
-      posts, // Include posts in props
+      posts,
     },
   };
 }
 
-export default Users;
+export default UsersPage;
